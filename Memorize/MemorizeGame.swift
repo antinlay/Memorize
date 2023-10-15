@@ -26,7 +26,7 @@ struct MemoryGame<CardContent> {
     
     mutating func shuffle() {
         cards.shuffle()
-        print(cards)
+//        print(cards)
     }
     
     struct Card {
