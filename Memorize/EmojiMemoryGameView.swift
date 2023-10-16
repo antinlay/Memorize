@@ -24,21 +24,22 @@ struct EmojiMemoryGameView: View {
         }
         .padding()
     }
-
-    var cards: some View {
-        AspectVGrid(items: viewModel.cards, aspectRatio: aspectRatio) { card in
+    
+    private var cards: some View {
+        AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
+            if card.id.last == "b" {
+                VStack {
                     CardView(card)
-                        .aspectRatio(aspectRatio, contentMode: .fit)
-                        .padding(4)
-                        .onTapGesture {
-                            viewModel.choose(card)
-                        }
+                    .padding(4)
+                    .onTapGesture {
+                        viewModel.choose(card)
+                    }
+                    Text(card.id)
                 }
             }
         }
         .foregroundColor(.blue)
     }
-
 }
  
 struct CardView: View {
