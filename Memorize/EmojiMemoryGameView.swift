@@ -11,13 +11,13 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     private let aspectRatio: CGFloat = 2/3
+    private let spacing: CGFloat = 4
     
     var body: some View {
         VStack {
-//            ScrollView {
-                cards
-                    .animation(.default, value: viewModel.cards)
-//            }
+            cards
+            .foregroundColor(viewModel.color)
+                .animation(.default, value: viewModel.cards)
             Button("Shuffle") {
                 viewModel.shuffle()
             }
@@ -29,23 +29,17 @@ struct EmojiMemoryGameView: View {
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio) { card in
                 VStack {
                     CardView(card)
-                    .padding(4)
+                    .padding(spacing)
                     .onTapGesture {
                         viewModel.choose(card)
                     }
                 }
-                .padding(10)
         }
-        .foregroundColor(.blue)
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    typealias Card = CardView.Card
+struct EmojiMemoryGameView_Previews: PreviewProvider {
     static var previews: some View {
-        HStack {
-            CardView(Card(isFaceUp: true, content: "G", id: "test1"))
-            CardView(Card(isFaceUp: true, content: "X", id: "test1"))
-        }
+        EmojiMemoryGameView(viewModel: EmojiMemoryGame())
     }
 }
